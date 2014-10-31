@@ -54,12 +54,12 @@ echo "path ${HOMEDIR}. If this is not correct, or if you want to back up a"
 read -p "different directory instead, enter it now [$HOMEDIR]: " LOCALDIR
 : ${LOCALDIR:="$HOMEDIR"}
 LOCALDIR=${LOCALDIR}
-read -p "Server with share to mount [sharedstorage01.hpc.uiowa.edu]: " SERVER
-: ${SERVER:="sharedstorage01.hpc.uiowa.edu"}
-read -p "Path to SMB share [mrirc]: " SHAREPATH
-: ${SHAREPATH:="mrirc"}
-read -p "Enter a name for the backup job [MRRC_Backup]: " JOBNAME
-: ${JOBNAME:="MRRC_Backup"}
+read -p "Server with share to mount [smb_server.generic.example.com]: " SERVER
+: ${SERVER:="smb_server.generic.example.com"}
+read -p "Path to SMB share [backup]: " SHAREPATH
+: ${SHAREPATH:="backup"}
+read -p "Enter a name for the backup job [Backup]: " JOBNAME
+: ${JOBNAME:="Backup"}
 
 #URL Encode the password for automount because otherwise it fails
 CLEARTEXTSECRET=${SECRET}
@@ -135,7 +135,7 @@ exec > >(tee \${_LOCALLOGFILE}) 2>&1
 
 
 echo '----------------------------------------------------------'
-echo '                MRRC Home Directory Backup                '
+echo '                     Home Directory Backup                '
 echo '----------------------------------------------------------'
 echo ''
 

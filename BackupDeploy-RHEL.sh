@@ -60,12 +60,12 @@ echo "path ${HOMEDIR}. If this is not correct, or if you want to back up a"
 read -p "different directory instead, enter it now [$HOMEDIR]: " LOCALDIR
 : ${LOCALDIR:="$HOMEDIR"}
 LOCALDIR=${LOCALDIR}/
-read -p "Server with share to mount [sharedstorage01.hpc.uiowa.edu]: " SERVER
-: ${SERVER:="sharedstorage01.hpc.uiowa.edu"}
-read -p "Path to SMB share [/mrirc]: " SHAREPATH
-: ${SHAREPATH:="/mrirc"}
-read -p "Enter a name for the backup job [MRRC_Backup] : " JOBNAME
-: ${JOBNAME:="MRRC_Backup"}
+read -p "Server with share to mount [smb_storage.generic.example.com]: " SERVER
+: ${SERVER:="smb_storage.generic.example.com"}
+read -p "Path to SMB share [/backup]: " SHAREPATH
+: ${SHAREPATH:="/backup"}
+read -p "Enter a name for the backup job [Backup] : " JOBNAME
+: ${JOBNAME:="Backup"}
 
 #Ensure SCRIPTDIR exists
 SCRIPTDIR="/root/.scripts"
@@ -161,7 +161,7 @@ chmod 755 \${_LOCALLOGFILE}
 exec > >(tee \${_LOCALLOGFILE}) 2>&1
 
 echo '----------------------------------------------------------'
-echo '                MRRC Home Directory Backup                '
+echo '                     Home Directory Backup                '
 echo '----------------------------------------------------------'
 echo ''
 
@@ -182,13 +182,13 @@ else
 		echo "Unable to mount backup share. Exiting..."
 		echo "Script stopped at \$(date +"%H:%M:%S %m/%d/%Y")"
 		cat >/tmp/failmsg.txt <<-EOF
-		The nightly MRRC backup job failed.
+		The nightly backup job failed.
 		If you have changed your password recently, this is likely the cause. Run the 
 		UpdatePassword.sh script found on the ICTS sysadmin share.
 
 		Contact ICTS if you need help.
 		EOF
-		mailx -s 'MRRC backup job failed!' root < /tmp/mail.txt
+		mailx -s 'Backup job failed!' root < /tmp/mail.txt
 		echo ''
 		exit 1
 	fi
